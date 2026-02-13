@@ -190,7 +190,38 @@ public class AhorcadoGui extends JFrame{
     
     
     
+    btnAdmin.addActionListener(e -> {
+    menuInicio(false);
     
+    String [] opciones ={"Agregar Palabra","Mostrar Palabras","Cancelar"};
+    
+      int seleccion = JOptionPane.showOptionDialog(
+            this,
+            "Eliga una accion",
+            "Administrar Palabras",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.INFORMATION_MESSAGE,
+            null,
+            opciones,
+            opciones[0]
+    );
+      
+      switch (seleccion){
+          case 0:
+              
+              break;
+              
+          case 1:
+              break;
+              
+              
+          default:
+              menuInicio(true);
+              break;
+      }
+      
+    });
+
     
     
     
