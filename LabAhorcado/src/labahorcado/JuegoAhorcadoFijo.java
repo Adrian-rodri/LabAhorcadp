@@ -123,13 +123,23 @@ public class JuegoAhorcadoFijo extends JuegoAhorcadoBase {
 
     @Override
     public void inicializarPalabraSecreta() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        String temp = "_";
+        for(int i = 0; i <palabraSecreta.length(); i++){
+            temp += "_";
+        }
+        this.palabraActual = temp;
+        this.intentos = limiteIntentos;
+        this.letrasUsadas.clear();
+        this.letrasIncorrectas.clear();
     }
 
     @Override
     public void jugar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    public void reiniciar() {
+        inicializarPalabraSecreta();
+    }
     
 }    
