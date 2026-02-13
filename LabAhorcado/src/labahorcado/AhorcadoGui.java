@@ -191,12 +191,7 @@ public class AhorcadoGui extends JFrame{
     add(btnAzar);
     add(btnFijo);
     add(lblMenu);
-    //
-    
-    
-    
-    
-    
+    //boton administrar palabras
     btnAdmin.addActionListener(e -> {
     boolean adminAbierto=true;
     while(adminAbierto){
@@ -248,75 +243,6 @@ public class AhorcadoGui extends JFrame{
         lblMenu.setBounds(280,200,500,30);
 
     });
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     this.setVisible(true);
     }
     //Limpiar menu
@@ -503,6 +429,7 @@ public class AhorcadoGui extends JFrame{
             actualizarFigura(juegoAzar.intentosFallidos);
         }
     }
+    // verificar zara
     void  verificarJuegoAzar() {
         if (juegoAzar!=null) {
             boolean gano=true;
