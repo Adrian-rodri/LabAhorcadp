@@ -208,7 +208,15 @@ public class AhorcadoGui extends JFrame{
       
       switch (seleccion){
           case 0:
-              
+              String nueva = JOptionPane.showInputDialog(this, "Ingrerse la nueva palabra:");
+              if(nueva != null && !nueva.trim().isEmpty()){
+                  try{
+                      adminPalabras.agregrarPlabras(nueva.trim().toLowerCase());
+                      JOptionPane.showMessageDialog(this, "Palabra agregada: "+nueva);
+                  }catch(Exception ex){
+                      JOptionPane.showMessageDialog(this,"Error"+ex.getMessage());
+                  }
+              }
               break;
               
           case 1:
