@@ -198,8 +198,6 @@ public class AhorcadoGui extends JFrame{
     
     
     btnAdmin.addActionListener(e -> {
-    menuInicio(false);
-    
     boolean adminAbierto=true;
     while(adminAbierto){
     String [] opciones ={"Agregar Palabra","Mostrar Palabras","Cancelar"};
@@ -234,23 +232,21 @@ public class AhorcadoGui extends JFrame{
               JOptionPane.showMessageDialog(this,"Palabras actuales: \n"+texto);
               break;
              
-              
+          case 2:
+              adminAbierto=false;
+        
+              break;
           default:
            adminAbierto=false;
               break;
       }
-      }
-        lblMenu.setBounds(280,200,500,30);
-    lblMenu.setText("Juego Ahorcado");
-    btnBack.setVisible(false);
-    btnFijo.setVisible(true);
-    btnAzar.setVisible(true);
-    btnAdmin.setVisible(true);
-    teclado.setVisible(false);
-    txtFigura.setVisible(false);
-    lblPalabraActual.setVisible(false);
-    lblIntentos.setVisible(false);
       
+      }
+    if(!adminAbierto)
+        menuInicio(true);
+    
+        lblMenu.setBounds(280,200,500,30);
+
     });
 
     
