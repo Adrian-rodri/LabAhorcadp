@@ -21,6 +21,12 @@ public class AhorcadoGui extends JFrame{
     JButton btnBack=  new JButton("Regresar ");
     JTextArea txtFigura = new JTextArea();
     JButton[][] teclas= new JButton[5][6];
+    
+    JuegoAhorcadoAzar juegoAzar= new JuegoAhorcadoAzar();
+    AdminPalabrasSecretas adminPalabras;
+    JLabel lblPalabraActual= new JLabel();
+    JLabel lblIntentos= new JLabel("Intentos: 6/6");
+    
     char[][] abecedario={{'a','b','c','d','e','f'},
                          {'g','h','i','j','k','l'},
                          {'m','n','o','p','q','r'},
@@ -40,6 +46,18 @@ public class AhorcadoGui extends JFrame{
     lblMenu.setBounds(280,200,500,30);
     lblMenu.setFont(new Font("Times New Roman", Font.BOLD, 35));
     lblMenu.setVisible(true);
+    //palabra
+    lblPalabraActual.setBounds(50, 350, 500, 40);
+    lblPalabraActual.setForeground(txt);
+    lblPalabraActual.setFont(new Font("Arial", Font.BOLD, 32));
+    lblPalabraActual.setHorizontalAlignment(SwingConstants.CENTER);
+    lblPalabraActual.setVisible(false);
+    lblPalabraActual.setText("_ _ _ _ _ _ _");
+    //Intentos
+    lblIntentos.setBounds(50, 400, 200, 30);
+    lblIntentos.setForeground(txt);
+    lblIntentos.setFont(new Font("Arial", Font.BOLD, 18));
+    lblIntentos.setVisible(false);
     // Boton jugar fijo
     btnFijo.setBounds(295, 240, 200,30);
     btnFijo.setBackground(btn);
@@ -66,6 +84,16 @@ public class AhorcadoGui extends JFrame{
     txtFigura.setFont(new Font("Courier New", Font.BOLD, 30));
     txtFigura.setEditable(false);
     txtFigura.setVisible(false);
+    //Agregar Palabras
+    adminPalabras = new AdminPalabrasSecretas();
+    adminPalabras.agregrarPlabras("java");
+    adminPalabras.agregrarPlabras("programa");
+    adminPalabras.agregrarPlabras("computadora");
+    adminPalabras.agregrarPlabras("teclado");
+    adminPalabras.agregrarPlabras("pantalla");
+    adminPalabras.agregrarPlabras("monitos");
+    adminPalabras.agregrarPlabras("desarrollo");
+    //Generar teclado
     for(int i=0; i<5;i++){
         for(int j=0; j<6;j++){
         teclas[i][j]= new JButton();
@@ -82,6 +110,7 @@ public class AhorcadoGui extends JFrame{
     //***Acciones
     //Boton jugar fijo
     btnFijo.addActionListener(e->{
+    String palabra= JOptionPane.showInputDialog(this, "Ingrese la Palabra Secreta");
     menuInicio(false);
     lblMenu.setBounds(280,20,500,30);
     lblMenu.setText("Palabra Fija");
@@ -89,15 +118,15 @@ public class AhorcadoGui extends JFrame{
     btnBack.setBounds(300,700,200,30);
     btnBack.setVisible(true);
     txtFigura.setVisible(true);
-txtFigura.setText(
-    " +-----+\n" +
-    "       |\n" +
-    "       |\n" +
-    "       |\n" +
-    "       |\n" +
-    "       |\n" +
-    "======="
-);
+    txtFigura.setText(" +-----+\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "=======");
+    lblPalabraActual.setVisible(true);
+    lblIntentos.setVisible(true);
     
     });
     //Boton jugar Azar
@@ -116,6 +145,8 @@ txtFigura.setText(
                       "       |\n" +
                       "       |\n" +
                       "=======");
+    lblPalabraActual.setVisible(true);
+    lblIntentos.setVisible(true);
     });
     //Boton admin
     btnAdmin.addActionListener(e->{
@@ -128,8 +159,12 @@ txtFigura.setText(
     menuInicio(true);
     teclado.setVisible(false);
     txtFigura.setVisible(false);
+    lblPalabraActual.setVisible(false);
+    lblIntentos.setVisible(false);
     });
     //Add
+    add(lblPalabraActual);
+    add(lblIntentos);
     add(txtFigura);
     add(btnBack);
     add(btnAdmin);
