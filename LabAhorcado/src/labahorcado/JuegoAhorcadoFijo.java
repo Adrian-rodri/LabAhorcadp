@@ -92,5 +92,44 @@ public class JuegoAhorcadoFijo extends JuegoAhorcadoBase {
         return palabraSecreta;
     }
     
+    public String getPalabraActual(){
+        return palabraActual;
+    }
+    
+    int getIntentosRestantes(){
+        return intentos;
+    }
+    
+    public ArrayList<Character> getLetrasIncorrectas() {
+        return letrasIncorrectas;
+    }
+    
+    public ArrayList<Character> getLetrasUsadas() {
+        return letrasUsadas;
+    }
+    
+    public String getFiguraActual(){
+        int errores = limiteIntentos - intentos;
+        
+        if(errores >= 0 && errores < figuraAhorcado.size()){
+            return figuraAhorcado.get(errores);
+        }
+        return figuraAhorcado.get(figuraAhorcado.size()-1);
+    }
+    
+    public boolean juegoTerminado(){
+        return hasGanado() || hasPerdido();
+    }
+
+    @Override
+    public void inicializarPalabraSecreta() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void jugar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
     
 }    
