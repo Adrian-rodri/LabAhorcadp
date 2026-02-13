@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -8,17 +9,28 @@ package labahorcado;
  *
  * @author spodi
  */
+=======
+
+package labahorcado;
+>>>>>>> 58f517f4ce94cdf2d418f75c3bb95a469aab4929
 
 import java.util.ArrayList;
 import java.util.Random;
 
+<<<<<<< HEAD
 public class AdminPalabrasSecretas {
     
+=======
+
+public class AdminPalabrasSecretas {
+
+>>>>>>> 58f517f4ce94cdf2d418f75c3bb95a469aab4929
     private ArrayList<String> palabras;
     
     public AdminPalabrasSecretas(){
         palabras = new ArrayList<>();
     }
+<<<<<<< HEAD
     public void agregrarPlabras(String palabra){
         if(!palabras.contains(palabra)){
             palabras.add(palabra); 
@@ -44,4 +56,40 @@ public class AdminPalabrasSecretas {
     }
 
 
+=======
+    
+    private void agregarPalabra(String palabra) throws IllegalArgumentException {
+    
+        if(palabra == null || palabra.trim().isEmpty()){
+            throw new IllegalArgumentException("Las palabras no pueden estar vacias");
+        }
+    
+        palabra = palabra.toUpperCase();
+        
+        if(palabras.contains(palabra)){
+            throw new IllegalArgumentException ("La palabra ya existe en la lista");
+        }
+        
+        palabras.add(palabra);
+        
+    }
+    
+    public String obtenerPalabraAleatorio() throws IllegalArgumentException{
+        
+        if(palabras.isEmpty()){
+            throw new IllegalArgumentException("No hay palabras disponibles");
+            
+        }
+        
+        Random random = new Random();
+        int indice = random.nextInt(palabras.size());
+        
+        return palabras.get(indice);
+    }
+    
+    public ArrayList<String> getPalabras(){
+        return palabras;
+    }
+    
+>>>>>>> 58f517f4ce94cdf2d418f75c3bb95a469aab4929
 }

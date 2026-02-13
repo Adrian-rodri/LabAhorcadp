@@ -3,35 +3,94 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package labahorcado;
-
+import java.util.ArrayList;
 /**
  *
  * @author gpopo
  */
 public class JuegoAhorcadoFijo extends JuegoAhorcadoBase {
-    private String palabraSecreta;
-    private int intentosRestantes;
+    private ArrayList<Character> letrasIncorrectas;
     
-    public JuegoAhorcadoFijo(String palabra){
-        this.palabraSecreta = palabra.toUpperCase();
-        this.intentosRestantes = 6;
+    public JuegoAhorcadoFijo(String palabraSecreta) {
+        super();
+        
+        this.palabraSecreta = palabraSecreta.toUpperCase();
+        this.intentos = limiteIntentos;
+        this.letrasIncorrectas = new ArrayList<>();
+        
+        String temp = "";
+        for(int i = 0; i<palabraSecreta.length(); i++) {
+            temp += "_";
+        }
+        this.palabraActual = temp;
     }
     
-    public boolean intentarLetra(char letra) {  
+    public boolean intentarLetra(char letra) {
         letra = Character.toUpperCase(letra);
         
-        if(letrasIntentadas.contains(letra)) {
-            return false;
+        if(letraYaIntentada(letra)){
+            return false;      
         }
         
-        letrasIntentadas.add(letra);
-        if(palabraSecreta.contains(String.valueOf(letra))){
-            return true;
-        }else {
-            intentosRestantes--;
-            return false;
+        letrasUsadas.add(letra);
+        boolean esCorrecto = verificarLetra(letra);
+        
+        if(esCorrecto){
+            actualizarPalabraActual(letra);
+    }else{
+            intentos--;
+            letrasIncorrectas.add(letra);
         }
-    
+        return esCorrecto;
     }
     
-}
+    @Override
+    protected void actualizarPalabraActual(char letra){
+        char[] palabraArray = palabraActual.toCharArray();
+        for(int i = 0; i < palabraSecreta.length(); i++) {
+            if(palabraSecreta.charAt(i) == letra){
+                palabraArray[i] = letra;
+            }
+        }
+        palabraActual = new String(palabraArray);
+    }
+    
+    @Override
+    protected boolean verificarLetra(char letra){
+        for(int i = 0; i < palabraSecreta.length(); i++){
+            if(palabraSecreta.charAt(i) == letra){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+    @Override
+    protected boolean hasGanado(){
+        return palabraActual.equals(palabraSecreta);
+    }
+    
+    public boolean hasPerdido(){
+        return intentos == 0;
+    }
+    
+    
+    
+    public boolean letraYaIntentada(char letra){
+        letra = Character.toUpperCase(letra);
+        
+        for(int i = 0; i < letrasUsadas.size(); i++) {
+            if(letrasUsadas.get(i) == letra){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public String getPalabraSecreta(){ 
+        return palabraSecreta;
+    }
+    
+    
+}    
