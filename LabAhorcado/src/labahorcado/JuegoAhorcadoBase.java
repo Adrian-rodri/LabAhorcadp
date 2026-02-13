@@ -21,6 +21,75 @@ public abstract class JuegoAhorcadoBase implements juegoAhorcado {
     
     private void inicializarFigura(){
         
+        
+        figuraAhorcado.add(
+                           " +-----\n"+
+                           "      |\n"+
+                           "      |\n"+
+                           "      |\n"+
+                           "      |\n"+
+                           "      |\n"+
+                           "======|\n");
+        
+        figuraAhorcado.add(
+                           " +-----\n"+
+                           " |     |\n"+
+                           " O     |\n"+
+                           "      |\n"+
+                           "      |\n"+
+                           "      |\n"+
+                           "======|\n");      
+
+        figuraAhorcado.add(
+                            " +---- \n" +
+                            " |    |\n" +
+                            " O    |\n" +
+                            " |    |\n" +
+                            "      |\n" +
+                            "      |\n" +
+                            "======="
+                        );
+
+                        figuraAhorcado.add(
+                            " +---- \n" +
+                            " |    |\n" +
+                            " O    |\n" +
+                            "/|    |\n" +
+                            "      |\n" +
+                            "      |\n" +
+                            "======="
+                        );
+
+                        figuraAhorcado.add(
+                            " +---- \n" +
+                            " |     |\n" +
+                            " O     |\n" +
+                            "/|\\   |\n" +
+                            "       |\n" +
+                            "       |\n" +
+                            "======="
+                        );
+
+                        figuraAhorcado.add(
+                            " +---- \n" +
+                            " |     |\n" +
+                            " O     |\n" +
+                            "/|\\   |\n" +
+                            "/      |\n" +
+                            "       |\n" +
+                            "======="
+                        );
+
+                        figuraAhorcado.add(
+                            " +---- \n" +
+                            " |     |\n" +
+                            " O     |\n" +
+                            "/|\\   |\n" +
+                            "/ \\   |\n" +
+                            "       |\n" +
+                            "======="
+                        );        
+     
     }
     protected abstract void actualizarPalabraActual(char letra);
     protected abstract boolean verificarLetra(char letra);
