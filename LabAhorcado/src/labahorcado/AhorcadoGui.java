@@ -19,6 +19,7 @@ public class AhorcadoGui extends JFrame{
     JButton btnAzar= new JButton("Jugar Ahorcado Azar");
     JButton btnAdmin= new JButton("Administar Plabaras");
     JButton btnBack=  new JButton("Regresar ");
+    JTextArea txtFigura = new JTextArea();
     JButton[][] teclas= new JButton[5][6];
     char[][] abecedario={{'a','b','c','d','e','f'},
                          {'g','h','i','j','k','l'},
@@ -58,6 +59,13 @@ public class AhorcadoGui extends JFrame{
     teclado.setBounds(250, 450, 300,200);
     teclado.setBackground(bgr);
     teclado.setVisible(false);
+    //Muñeco
+    txtFigura.setBounds(400, 80, 200, 250);  // x, y, ancho, alto
+    txtFigura.setBackground(bgr);
+    txtFigura.setForeground(txt);
+    txtFigura.setFont(new Font("Courier New", Font.BOLD, 30));
+    txtFigura.setEditable(false);
+    txtFigura.setVisible(false);
     for(int i=0; i<5;i++){
         for(int j=0; j<6;j++){
         teclas[i][j]= new JButton();
@@ -80,6 +88,16 @@ public class AhorcadoGui extends JFrame{
     teclado.setVisible(true);
     btnBack.setBounds(300,700,200,30);
     btnBack.setVisible(true);
+    txtFigura.setVisible(true);
+txtFigura.setText(
+    " +-----+\n" +
+    "       |\n" +
+    "       |\n" +
+    "       |\n" +
+    "       |\n" +
+    "       |\n" +
+    "======="
+);
     
     });
     //Boton jugar Azar
@@ -90,7 +108,14 @@ public class AhorcadoGui extends JFrame{
     teclado.setVisible(true);
     btnBack.setBounds(300,700,200,30);
     btnBack.setVisible(true);
-    
+    txtFigura.setVisible(true);
+    txtFigura.setText(" +-----+\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "       |\n" +
+                      "=======");
     });
     //Boton admin
     btnAdmin.addActionListener(e->{
@@ -102,9 +127,10 @@ public class AhorcadoGui extends JFrame{
     btnBack.addActionListener(e->{
     menuInicio(true);
     teclado.setVisible(false);
-    
+    txtFigura.setVisible(false);
     });
     //Add
+    add(txtFigura);
     add(btnBack);
     add(btnAdmin);
     add(teclado);
