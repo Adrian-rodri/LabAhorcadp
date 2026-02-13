@@ -107,7 +107,7 @@ public class AhorcadoGui extends JFrame{
         teclas[i][j].setText(String.valueOf(abecedario[i][j]));}
         teclas[i][j].addActionListener(e ->{
             if(juegoFijo != null) {
-                //procesarLetraFijo(letra);
+                procesarLetraFijo(letra);
             } else if(juegoAzar != null) {
                 //procesarLetraAzar(letra);
     }
@@ -275,11 +275,122 @@ public class AhorcadoGui extends JFrame{
         if(juegoFijo!=null && !juegoFijo.juegoTerminado()){
         boolean correcta= juegoFijo.intentarLetra(letra); 
         actualizarInterfazFijo();
-        //deshabilitarTeclaConColor(letra, correcta);
-        //verificarEstadoJuegoFijo();
+        deshabilitarColor(letra, correcta);
+        verificarJuego();
         }
     }
     void actualizarInterfazFijo(){
-        //if()
+    if(juegoFijo!=null){
+        StringBuilder palabraMostrar = new StringBuilder();
+        for (int i = 0; i < juegoFijo.getPalabraActual().length(); i++) {
+            palabraMostrar.append(juegoFijo.getPalabraActual().charAt(i)).append(" ");
+        }
+        lblPalabraActual.setText(palabraMostrar.toString().trim());
+        
+
+        lblIntentos.setText("Intentos: " + juegoFijo.getIntentosRestantes() + "/" + juegoFijo.limiteIntentos);
+        
+      
+        int intentosFallidos = juegoFijo.limiteIntentos - juegoFijo.getIntentosRestantes();
+        actualizarFigura(intentosFallidos);
+    
     }
+    }
+    void verificarJuego(){
+        if(juegoFijo!= null ){
+            if(juegoFijo.hasGanado()){
+            JOptionPane.showMessageDialog(this, "Felicidades Ganaste! \nLa palabra era: "+ juegoFijo.getPalabraActual());
+            //deshabilitarTeclas();
+            }else if(juegoFijo.hasPerdido()){
+            JOptionPane.showMessageDialog(this, "Perdiste \n La palabra era: "+ juegoFijo.getPalabraActual());
+            //deshabilitarTeclas();
+            }
+        }
+    }
+    void deshabilitarColor(char letra, boolean correcta) {
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 6; j++) {
+            if (Character.toUpperCase(abecedario[i][j]) == Character.toUpperCase(letra)) {
+                teclas[i][j].setEnabled(false);
+                //Verde si es correcta, rojo si es incorrecta
+                if (correcta) {
+                    teclas[i][j].setBackground(new Color(0x28A745)); // Verde
+                } else {
+                    teclas[i][j].setBackground(new Color(0xDC3545)); // Rojo
+                }
+            }
+        }
+    }
+}
+    //Actualizar figura
+void actualizarFigura(int nivel) {
+    String[] figuras = {
+        " +-----+\n" +
+        "       |\n" +
+        "       |\n" +
+        "       |\n" +
+        "       |\n" +
+        "       |\n" +
+        "=======",
+        
+        //Cabeza
+        " +-----+\n" +
+        " |     |\n" +
+        " O     |\n" +
+        "       |\n" +
+        "       |\n" +
+        "       |\n" +
+        "=======",
+        
+        //Cuerpo
+        " +-----+\n" +
+        " |     |\n" +
+        " O     |\n" +
+        " |     |\n" +
+        "       |\n" +
+        "       |\n" +
+        "=======",
+        
+        //Brazo izquierdo
+        " +-----+\n" +
+        " |     |\n" +
+        " O     |\n" +
+        "/|     |\n" +
+        "       |\n" +
+        "       |\n" +
+        "=======",
+        
+        //Dos brazos
+        " +-----+\n" +
+        " |     |\n" +
+        " O     |\n" +
+        "/|\\    |\n" +
+        "       |\n" +
+        "       |\n" +
+        "=======",
+        
+        //Pierna izquierda
+        " +-----+\n" +
+        " |     |\n" +
+        " O     |\n" +
+        "/|\\    |\n" +
+        "/      |\n" +
+        "       |\n" +
+        "=======",
+        
+        //Ambas piernas (PERDIÓ)
+        " +-----+\n" +
+        " |     |\n" +
+        " O     |\n" +
+        "/|\\    |\n" +
+        "/ \\    |\n" +
+        "       |\n" +
+        "======="
+    };
+    if (nivel >= 0 && nivel < figuras.length) {
+        txtFigura.setText(figuras[nivel]);
+    } else if (nivel >= figuras.length) {
+        txtFigura.setText(figuras[6]);
+    }
+}
 }
