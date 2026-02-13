@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class JuegoAhorcadoAzar extends JuegoAhorcadoBase {
 
-    private String[] palabras = {"java", "programa", "computadora", "teclado", "pantalla"};
-    private int intentosFallidos;
+    public String[] palabras = {"java", "programa", "computadora", "teclado", "pantalla"};
+    public int intentosFallidos;
 
     public JuegoAhorcadoAzar() {
         intentosFallidos = 0;

@@ -14,7 +14,7 @@ public class JuegoAhorcadoFijo extends JuegoAhorcadoBase {
     public JuegoAhorcadoFijo(String palabraSecreta) {
         super();
         
-        this.palabraSecreta = palabraSecreta.toUpperCase();
+        this.palabraSecreta = palabraSecreta;
         this.intentos = limiteIntentos;
         this.letrasIncorrectas = new ArrayList<>();
         
@@ -26,7 +26,7 @@ public class JuegoAhorcadoFijo extends JuegoAhorcadoBase {
     }
     
     public boolean intentarLetra(char letra) {
-        letra = Character.toUpperCase(letra);
+        letra = Character.toLowerCase(letra);
         
         if(letraYaIntentada(letra)){
             return false;      
