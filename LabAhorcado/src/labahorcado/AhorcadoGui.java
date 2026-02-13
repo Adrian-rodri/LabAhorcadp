@@ -23,6 +23,7 @@ public class AhorcadoGui extends JFrame{
     JButton[][] teclas= new JButton[5][6];
     
     JuegoAhorcadoAzar juegoAzar= new JuegoAhorcadoAzar();
+    JuegoAhorcadoFijo juegoFijo;
     AdminPalabrasSecretas adminPalabras;
     JLabel lblPalabraActual= new JLabel();
     JLabel lblIntentos= new JLabel("Intentos: 6/6");
@@ -102,7 +103,16 @@ public class AhorcadoGui extends JFrame{
             teclas[i][j].setText("");
             teclas[i][j].setVisible(false);
         }else{
+        char letra= abecedario[i][j];
         teclas[i][j].setText(String.valueOf(abecedario[i][j]));}
+        teclas[i][j].addActionListener(e ->{
+            if(juegoFijo != null) {
+                //procesarLetraFijo(letra);
+            } else if(juegoAzar != null) {
+                //procesarLetraAzar(letra);
+    }
+        
+        });
         teclado.add(teclas[i][j]);
         }
     }
@@ -111,14 +121,16 @@ public class AhorcadoGui extends JFrame{
     //Boton jugar fijo
     btnFijo.addActionListener(e->{
     String palabra= JOptionPane.showInputDialog(this, "Ingrese la Palabra Secreta");
-    menuInicio(false);
-    lblMenu.setBounds(280,20,500,30);
-    lblMenu.setText("Palabra Fija");
-    teclado.setVisible(true);
-    btnBack.setBounds(300,700,200,30);
-    btnBack.setVisible(true);
-    txtFigura.setVisible(true);
-    txtFigura.setText(" +-----+\n" +
+    if(palabra!= null && !palabra.isEmpty()){
+        juegoFijo= new JuegoAhorcadoFijo(palabra.toLowerCase());
+        menuInicio(false);
+        lblMenu.setBounds(280,20,500,30);
+        lblMenu.setText("Palabra Fija");
+        teclado.setVisible(true);
+        btnBack.setBounds(300,700,200,30);
+        btnBack.setVisible(true);
+        txtFigura.setVisible(true);
+        txtFigura.setText(" +-----+\n" +
                       "       |\n" +
                       "       |\n" +
                       "       |\n" +
@@ -127,7 +139,7 @@ public class AhorcadoGui extends JFrame{
                       "=======");
     lblPalabraActual.setVisible(true);
     lblIntentos.setVisible(true);
-    
+    }
     });
     //Boton jugar Azar
     btnAzar.addActionListener(e->{
@@ -177,6 +189,76 @@ public class AhorcadoGui extends JFrame{
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     this.setVisible(true);
     }
     void menuInicio(boolean tons){
@@ -188,5 +270,16 @@ public class AhorcadoGui extends JFrame{
         btnFijo.setVisible(tons);
         btnAzar.setVisible(tons);
         btnAdmin.setVisible(tons);
+    }
+    void procesarLetra(char letra){
+        if(juegoFijo!=null && !juegoFijo.juegoTerminado()){
+        boolean correcta= juegoFijo.intentarLetra(letra); 
+        actualizarInterfazFijo();
+        //deshabilitarTeclaConColor(letra, correcta);
+        //verificarEstadoJuegoFijo();
+        }
+    }
+    void actualizarInterfazFijo(){
+        //if()
     }
 }
