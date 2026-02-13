@@ -2,6 +2,7 @@
 package labahorcado;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class AdminPalabrasSecretas {
@@ -27,4 +28,18 @@ public class AdminPalabrasSecretas {
         palabras.add(palabra);
         
     }
+    
+    public String obtenerPalabraAleatorio() throws IllegalArgumentException{
+        
+        if(palabras.isEmpty()){
+            throw new IllegalArgumentException("No hay palabras disponibles");
+            
+        }
+        
+        Random random = new Random();
+        int indice = random.nextInt(palabras.size());
+        
+        return palabras.get(indice);
+    }
+    
 }
