@@ -42,4 +42,8 @@ public class AdminPalabrasSecretas {
         return palabras.get(indice);
     }
     
+    public ArrayList<String> getPalabras(){
+        return palabras;
+    }
+    
 }
