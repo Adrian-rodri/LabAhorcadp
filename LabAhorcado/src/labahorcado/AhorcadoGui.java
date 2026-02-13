@@ -7,6 +7,7 @@ package labahorcado;
  */
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AhorcadoGui extends JFrame{
     Color bgr= new Color(0x00000);
@@ -193,6 +194,8 @@ public class AhorcadoGui extends JFrame{
     btnAdmin.addActionListener(e -> {
     menuInicio(false);
     
+    boolean adminAbierto=true;
+    while(adminAbierto){
     String [] opciones ={"Agregar Palabra","Mostrar Palabras","Cancelar"};
     
       int seleccion = JOptionPane.showOptionDialog(
@@ -220,13 +223,27 @@ public class AhorcadoGui extends JFrame{
               break;
               
           case 1:
+              ArrayList<String> lista = adminPalabras.getPalabras();
+              String texto = String.join(", ",lista);
+              JOptionPane.showMessageDialog(this,"Palabras actuales: \n"+texto);
               break;
-              
+             
               
           default:
-              menuInicio(true);
+           adminAbierto=false;
               break;
       }
+      }
+        lblMenu.setBounds(280,200,500,30);
+    lblMenu.setText("Juego Ahorcado");
+    btnBack.setVisible(false);
+    btnFijo.setVisible(true);
+    btnAzar.setVisible(true);
+    btnAdmin.setVisible(true);
+    teclado.setVisible(false);
+    txtFigura.setVisible(false);
+    lblPalabraActual.setVisible(false);
+    lblIntentos.setVisible(false);
       
     });
 
