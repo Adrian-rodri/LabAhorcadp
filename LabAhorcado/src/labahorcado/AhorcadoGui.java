@@ -22,7 +22,7 @@ public class AhorcadoGui extends JFrame{
     JTextArea txtFigura = new JTextArea();
     JButton[][] teclas= new JButton[5][6];
     
-    JuegoAhorcadoAzar juegoAzar= new JuegoAhorcadoAzar();
+    JuegoAhorcadoAzar juegoAzar;
     JuegoAhorcadoFijo juegoFijo;
     AdminPalabrasSecretas adminPalabras;
     JLabel lblPalabraActual= new JLabel();
@@ -111,7 +111,7 @@ public class AhorcadoGui extends JFrame{
             if(juegoFijo != null) {
                 procesarLetra(letra);
             } else if(juegoAzar != null) {
-                //procesarLetraAzar(letra);
+                procesarLetraAzar(letra);
     }
         });
         teclado.add(teclas[i][j]);
@@ -147,6 +147,7 @@ public class AhorcadoGui extends JFrame{
     //Boton jugar Azar
     btnAzar.addActionListener(e->{
     menuInicio(false);
+    juegoAzar= new JuegoAhorcadoAzar();
     lblMenu.setBounds(280,20,500,30);
     lblMenu.setText("Palabra Random");
     teclado.setVisible(true);
@@ -162,6 +163,8 @@ public class AhorcadoGui extends JFrame{
                       "=======");
     lblPalabraActual.setVisible(true);
     lblIntentos.setVisible(true);
+    actualizarInterfazAzar();
+    resetearTeclado();
     });
     //Boton admin
     btnAdmin.addActionListener(e->{
@@ -211,7 +214,15 @@ public class AhorcadoGui extends JFrame{
       
       switch (seleccion){
           case 0:
-              
+              String nueva = JOptionPane.showInputDialog(this, "Ingrerse la nueva palabra:");
+              if(nueva != null && !nueva.trim().isEmpty()){
+                  try{
+                      adminPalabras.agregrarPlabras(nueva.trim().toLowerCase());
+                      JOptionPane.showMessageDialog(this, "Palabra agregada: "+nueva);
+                  }catch(Exception ex){
+                      JOptionPane.showMessageDialog(this,"Error"+ex.getMessage());
+                  }
+              }
               break;
               
           case 1:
@@ -295,6 +306,7 @@ public class AhorcadoGui extends JFrame{
     
     this.setVisible(true);
     }
+    //Limpiar menu
     void menuInicio(boolean tons){
         if(tons){
         lblMenu.setBounds(280,200,500,30);
@@ -305,6 +317,7 @@ public class AhorcadoGui extends JFrame{
         btnAzar.setVisible(tons);
         btnAdmin.setVisible(tons);
     }
+    //Ingresa letra
     void procesarLetra(char letra){
         if(juegoFijo!=null && !juegoFijo.juegoTerminado()){
         boolean correcta= juegoFijo.intentarLetra(letra); 
@@ -313,37 +326,39 @@ public class AhorcadoGui extends JFrame{
         verificarJuego();
         }
     }
+    //Actualiza palabra fijo
     void actualizarInterfazFijo(){
     if(juegoFijo!=null){
         StringBuilder palabraMostrar = new StringBuilder();
         for (int i = 0; i < juegoFijo.getPalabraActual().length(); i++) {
-            palabraMostrar.append(juegoFijo.getPalabraActual().charAt(i)).append(" ");
+            palabraMostrar.append(juegoFijo.getPalabraActual().toLowerCase().charAt(i)).append(" ");
         }
         lblPalabraActual.setText(palabraMostrar.toString().trim());
         
 
         lblIntentos.setText("Intentos: " + juegoFijo.getIntentosRestantes() + "/" + juegoFijo.limiteIntentos);
         
-      
         int intentosFallidos = juegoFijo.limiteIntentos - juegoFijo.getIntentosRestantes();
         actualizarFigura(intentosFallidos);
     
     }
     }
+    //verificar
     void verificarJuego(){
         if(juegoFijo!= null ){
             if(juegoFijo.hasGanado()){
-            JOptionPane.showMessageDialog(this, "Felicidades Ganaste! \nLa palabra era: "+ juegoFijo.getPalabraActual());
+            JOptionPane.showMessageDialog(this, "Felicidades Ganaste! \nLa palabra era: "+ juegoFijo.getPalabraSecreta());
             deshabilitarTeclas();
             }else if(juegoFijo.hasPerdido()){
-            JOptionPane.showMessageDialog(this, "Perdiste \n La palabra era: "+ juegoFijo.getPalabraActual());
+            JOptionPane.showMessageDialog(this, "Perdiste \n La palabra era: "+ juegoFijo.getPalabraSecreta());
             deshabilitarTeclas();
             }
         }
     }
+    //deshabilitar teclas y cambiar color
     void deshabilitarColor(char letra, boolean correcta) {
-    for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < 6; j++) {
+    for (int i=0;i< 5; i++) {
+        for (int j=0;j<6;j++) {
             if (Character.toUpperCase(abecedario[i][j]) == Character.toUpperCase(letra)) {
                 teclas[i][j].setEnabled(false);
                 //Verde si es correcta, rojo si es incorrecta
@@ -352,12 +367,9 @@ public class AhorcadoGui extends JFrame{
                 } else {
                     teclas[i][j].setBackground(new Color(0xDC3545)); // Rojo
                 }
-            }
-        }
-    }
-}
+            }}}}
     //Actualizar figura
-void actualizarFigura(int nivel) {
+    void actualizarFigura(int nivel) {
     String[] figuras = {
         " +-----+\n" +
         "       |\n" +
@@ -412,7 +424,7 @@ void actualizarFigura(int nivel) {
         "       |\n" +
         "=======",
         
-        //Ambas piernas (PERDIÓ)
+        //Dos piernas, perder
         " +-----+\n" +
         " |     |\n" +
         " O     |\n" +
@@ -427,7 +439,8 @@ void actualizarFigura(int nivel) {
         txtFigura.setText(figuras[6]);
     }
 }
-void resetearTeclado() {
+    //Reset teclado
+    void resetearTeclado() {
     for (int i=0;i<5; i++) {
         for (int j =0;j <6; j++) {
             if (abecedario[i][j] != '1') {
@@ -435,15 +448,68 @@ void resetearTeclado() {
                 teclas[i][j].setBackground(btn);
             }
         }
-    }
-}
-void deshabilitarTeclas() {
-    for (int i=0;i<5; i++) {
-        for (int j=0; j<6; j++) {
-            if (abecedario[i][j] != '1') {
-                teclas[i][j].setEnabled(false);
+    }}
+    //deshabilitar teclas
+    void deshabilitarTeclas() {
+        for (int i=0;i<5; i++) {
+            for (int j=0; j<6; j++) {
+                if (abecedario[i][j] != '1') {
+                    teclas[i][j].setEnabled(false);
+                }
             }
+        }}
+    //intentar letra zara
+    void procesarLetraAzar(char letra){
+     if (juegoAzar != null) {
+            char letraMin = Character.toLowerCase(letra);
+            juegoAzar.ingresarLetra(letraMin);
+            actualizarInterfazAzar();
+
+            boolean correcta = juegoAzar.palabraSecreta.indexOf(letraMin) >= 0;
+            deshabilitarColor(letra, correcta);
+            verificarJuegoAzar();
         }
     }
-}
-}
+    //Logica Azar
+    //Actualizar la palabra
+    void actualizarInterfazAzar(){
+        if (juegoAzar!= null) {
+            StringBuilder palabraMostrar=new StringBuilder();
+            for (int i= 0;i< juegoAzar.palabraSecreta.length(); i++) {
+                char c= juegoAzar.palabraSecreta.charAt(i);
+                if (juegoAzar.letrasUsadas.contains(c)) {
+                    palabraMostrar.append(Character.toLowerCase(c)).append(" ");
+                } else {
+                    palabraMostrar.append("_ ");
+                }
+            }
+
+            lblPalabraActual.setText(palabraMostrar.toString().trim());
+            int intentosRestantes = juegoAzar.limiteIntentos - juegoAzar.intentosFallidos;
+            lblIntentos.setText("Intentos: " + intentosRestantes + "/" + juegoAzar.limiteIntentos);
+            actualizarFigura(juegoAzar.intentosFallidos);
+        }
+    }
+    void  verificarJuegoAzar() {
+        if (juegoAzar!=null) {
+            boolean gano=true;
+            for (int i=0;i< juegoAzar.palabraSecreta.length();i++) {
+                char c =juegoAzar.palabraSecreta.charAt(i);
+                if (!juegoAzar.letrasUsadas.contains(c)) {
+                    gano = false;
+                    break;
+                }
+            }
+            if (gano) {
+                JOptionPane.showMessageDialog(this,
+                    "FELICIDADES! Ganaste\nLa palabra era: " + juegoAzar.palabraSecreta.toUpperCase());
+                deshabilitarTeclas();
+            }
+            if (juegoAzar.intentosFallidos >= juegoAzar.limiteIntentos) {
+                JOptionPane.showMessageDialog(this,
+                    "PERDISTE!\nLa palabra era: " + juegoAzar.palabraSecreta.toUpperCase());
+                deshabilitarTeclas();
+            }
+        }
+        }
+   }
