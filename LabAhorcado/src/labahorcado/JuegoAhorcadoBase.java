@@ -16,7 +16,7 @@ public abstract class JuegoAhorcadoBase implements juegoAhorcado {
         this.intentos=limiteIntentos;
         this.letrasUsadas= new ArrayList();
         this.figuraAhorcado=new ArrayList();
-        
+        inicializarFigura(); 
     }
     
     private void inicializarFigura(){

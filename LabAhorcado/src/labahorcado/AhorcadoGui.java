@@ -103,15 +103,16 @@ public class AhorcadoGui extends JFrame{
             teclas[i][j].setText("");
             teclas[i][j].setVisible(false);
         }else{
+        
+        teclas[i][j].setText(String.valueOf(abecedario[i][j]));
+        }
         char letra= abecedario[i][j];
-        teclas[i][j].setText(String.valueOf(abecedario[i][j]));}
         teclas[i][j].addActionListener(e ->{
             if(juegoFijo != null) {
-                procesarLetraFijo(letra);
+                procesarLetra(letra);
             } else if(juegoAzar != null) {
                 //procesarLetraAzar(letra);
     }
-        
         });
         teclado.add(teclas[i][j]);
         }
@@ -139,6 +140,8 @@ public class AhorcadoGui extends JFrame{
                       "=======");
     lblPalabraActual.setVisible(true);
     lblIntentos.setVisible(true);
+    actualizarInterfazFijo();
+    resetearTeclado();
     }
     });
     //Boton jugar Azar
@@ -190,7 +193,38 @@ public class AhorcadoGui extends JFrame{
     
     
     
+    btnAdmin.addActionListener(e -> {
+    menuInicio(false);
     
+    String [] opciones ={"Agregar Palabra","Mostrar Palabras","Cancelar"};
+    
+      int seleccion = JOptionPane.showOptionDialog(
+            this,
+            "Eliga una accion",
+            "Administrar Palabras",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.INFORMATION_MESSAGE,
+            null,
+            opciones,
+            opciones[0]
+    );
+      
+      switch (seleccion){
+          case 0:
+              
+              break;
+              
+          case 1:
+              break;
+              
+              
+          default:
+              menuInicio(true);
+              break;
+      }
+      
+    });
+
     
     
     
@@ -300,10 +334,10 @@ public class AhorcadoGui extends JFrame{
         if(juegoFijo!= null ){
             if(juegoFijo.hasGanado()){
             JOptionPane.showMessageDialog(this, "Felicidades Ganaste! \nLa palabra era: "+ juegoFijo.getPalabraActual());
-            //deshabilitarTeclas();
+            deshabilitarTeclas();
             }else if(juegoFijo.hasPerdido()){
             JOptionPane.showMessageDialog(this, "Perdiste \n La palabra era: "+ juegoFijo.getPalabraActual());
-            //deshabilitarTeclas();
+            deshabilitarTeclas();
             }
         }
     }
@@ -391,6 +425,25 @@ void actualizarFigura(int nivel) {
         txtFigura.setText(figuras[nivel]);
     } else if (nivel >= figuras.length) {
         txtFigura.setText(figuras[6]);
+    }
+}
+void resetearTeclado() {
+    for (int i=0;i<5; i++) {
+        for (int j =0;j <6; j++) {
+            if (abecedario[i][j] != '1') {
+                teclas[i][j].setEnabled(true);
+                teclas[i][j].setBackground(btn);
+            }
+        }
+    }
+}
+void deshabilitarTeclas() {
+    for (int i=0;i<5; i++) {
+        for (int j=0; j<6; j++) {
+            if (abecedario[i][j] != '1') {
+                teclas[i][j].setEnabled(false);
+            }
+        }
     }
 }
 }
