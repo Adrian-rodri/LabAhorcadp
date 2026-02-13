@@ -1,17 +1,62 @@
+<<<<<<< HEAD
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package labahorcado;
+
+/**
+ *
+ * @author spodi
+ */
+=======
 
 package labahorcado;
+>>>>>>> 58f517f4ce94cdf2d418f75c3bb95a469aab4929
 
 import java.util.ArrayList;
 import java.util.Random;
 
+<<<<<<< HEAD
+public class AdminPalabrasSecretas {
+    
+=======
 
 public class AdminPalabrasSecretas {
 
+>>>>>>> 58f517f4ce94cdf2d418f75c3bb95a469aab4929
     private ArrayList<String> palabras;
     
     public AdminPalabrasSecretas(){
         palabras = new ArrayList<>();
     }
+<<<<<<< HEAD
+    public void agregrarPlabras(String palabra){
+        if(!palabras.contains(palabra)){
+            palabras.add(palabra); 
+        }else{
+            System.out.println("La palabra ya existe en la lista"); 
+            
+        }
+    }
+        public String obtenerPalabraAleatoria() {
+        if (palabras.isEmpty()) {
+            return null;
+        }
+
+        Random rand = new Random();
+        int indice = rand.nextInt(palabras.size());
+        return palabras.get(indice);
+    }
+
+            public void mostrarPalabras() {
+        for (String palabra : palabras) {
+            System.out.println(palabra);
+        }
+    }
+
+
+=======
     
     private void agregarPalabra(String palabra) throws IllegalArgumentException {
     
@@ -46,4 +91,5 @@ public class AdminPalabrasSecretas {
         return palabras;
     }
     
+>>>>>>> 58f517f4ce94cdf2d418f75c3bb95a469aab4929
 }
